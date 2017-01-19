@@ -1,20 +1,21 @@
 /* global Module */
 
 /* Magic Mirror
- * Module: MMM-PIR-Sensor
+ * Module: MMM-PIR-Detector
  *
+ * Based on MMM-PIR-Sensor (modified to minimize dependencies)
  * By Paul-Vincent Roll http://paulvincentroll.com
  * MIT Licensed.
  */
 
-Module.register('MMM-PIR-Sensor',{
+Module.register('MMM-PIR-Detector',{
 
 	defaults: {
-		sensorPIN: 22,
-		relayPIN: false,
+		pirPIN: 22,
 		powerSaving: true,
 		relayOnState: 1,
 	},
+
 
 	// Override socket notification handler.
 	socketNotificationReceived: function(notification, payload) {
@@ -28,6 +29,12 @@ Module.register('MMM-PIR-Sensor',{
 			this.sendNotification(notification, payload)
 		}
 	},
+
+	getDom: function() {
+		var wrapper = document.createElement("div");
+		wrapper.innerHTML = "Testing this out";
+		return wrapper;
+	}
 
 	start: function() {
 		if (this.config.relayOnState == 1){

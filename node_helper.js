@@ -1,15 +1,16 @@
 'use strict';
 
 /* Magic Mirror
- * Module: MMM-PIR-Sensor
+ * Module: MMM-PIR-Detector
  *
+ * Based on MMM-PIR-Sensor (modified to minimize dependencies)
  * By Paul-Vincent Roll http://paulvincentroll.com
  * MIT Licensed.
  */
 
 const NodeHelper = require('node_helper');
-const Gpio = require('onoff').Gpio;
-const exec = require('child_process').exec;
+//const Gpio = require('onoff').Gpio;
+//const exec = require('child_process').exec;
 
 module.exports = NodeHelper.create({
   start: function () {
@@ -17,25 +18,30 @@ module.exports = NodeHelper.create({
   },
 
   activateMonitor: function () {
+    /*
     if (this.config.relayPIN != false) {
       this.relay.writeSync(this.config.relayOnState);
     }
     else if (this.config.relayPIN == false){
       exec("/opt/vc/bin/tvservice --preferred && sudo chvt 6 && sudo chvt 7", null);
     }
+    */
   },
 
   deactivateMonitor: function () {
+    /*
     if (this.config.relayPIN != false) {
       this.relay.writeSync(this.config.relayOffState);
     }
     else if (this.config.relayPIN == false){
       exec("/opt/vc/bin/tvservice -o", null);
     }
+    */
   },
 
   // Subclass socketNotificationReceived received.
   socketNotificationReceived: function(notification, payload) {
+    /*
     if (notification === 'CONFIG' && this.started == false) {
       const self = this;
       this.config = payload;
@@ -44,12 +50,6 @@ module.exports = NodeHelper.create({
       this.pir = new Gpio(this.config.sensorPIN, 'in', 'both');
       // exec("echo '" + this.config.sensorPIN.toString() + "' > /sys/class/gpio/export", null);
       // exec("echo 'in' > /sys/class/gpio/gpio" + this.config.sensorPIN.toString() + "/direction", null);
-
-      if (this.config.relayPIN) {
-        this.relay = new Gpio(this.config.relayPIN, 'out');
-        this.relay.writeSync(this.config.relayOnState);
-        exec("/opt/vc/bin/tvservice --preferred && sudo chvt 6 && sudo chvt 7", null);
-      }
 
       //Detected movement
       this.pir.watch(function(err, value) {
@@ -71,7 +71,7 @@ module.exports = NodeHelper.create({
 
     } else if (notification === 'SCREEN_WAKEUP') {
       this.activateMonitor();
-    }
+    }*/
   }
 
 });
