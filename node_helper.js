@@ -54,6 +54,9 @@ module.exports = NodeHelper.create({
         
   pollPin: function(self) {
     setTimeout(self.pollPin, 1000, self);
+    self.pir.read(function(err, value) {
+      if (val === 1) self.activateMonitor();
+    });
     /*
     PiGpio.open(15, "input", function(err) {
       console.log("Opening pin (" + err + ")");
@@ -64,7 +67,7 @@ module.exports = NodeHelper.create({
           console.log("Opening pin (" + err + ")");
         });
       });
-    });  */  
+    });*/
   },
    
   // Subclass socketNotificationReceived received.
@@ -74,19 +77,19 @@ module.exports = NodeHelper.create({
       const self = this;
       this.config = payload;
       this.activateMonitor();
-      //setTimeout(self.pollPin, 1000, self);
 
       //Setup pins
-      this.pir = new Gpio(this.config.pirPIN, 'in', 'rising');
+      this.pir = new Gpio(this.config.pirPIN, 'in');
+      setTimeout(self.pollPin, 1000, self);
       // exec("echo '" + this.config.sensorPIN.toString() + "' > /sys/class/gpio/export", null);
       // exec("echo 'in' > /sys/class/gpio/gpio" + this.config.sensorPIN.toString() + "/direction", null);
 
       //Detected movement
-      this.pir.watch(function(err, value) {
-        if (value == 1) { 
-          self.activateMonitor();
-        }
-      });
+      //this.pir.watch(function(err, value) {
+      //  if (value == 1) { 
+      //    self.activateMonitor();
+      //  }
+      //});
 
       this.started = true;
 
