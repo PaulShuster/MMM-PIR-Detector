@@ -62,29 +62,28 @@ module.exports = NodeHelper.create({
     if (notification === 'CONFIG' && this.started == false) {
       const self = this;
       this.config = payload;
-      setTimeout(self.pollPin, 1000, self);
+      //setTimeout(self.pollPin, 1000, self);
 
-      //Setup pins
-      //this.pir = new Gpio(this.config.sensorPIN, 'in', 'both');
+      Setup pins
+      this.pir = new Gpio(this.config.sensorPIN, 'in', 'both');
       // exec("echo '" + this.config.sensorPIN.toString() + "' > /sys/class/gpio/export", null);
       // exec("echo 'in' > /sys/class/gpio/gpio" + this.config.sensorPIN.toString() + "/direction", null);
 
       //Detected movement
-      /*
       this.pir.watch(function(err, value) {
         if (value == 1) {
-          self.sendSocketNotification("USER_PRESENCE", true);
+          //self.sendSocketNotification("USER_PRESENCE", true);
           if (self.config.powerSaving){
             self.activateMonitor();
           }
          }
         else if (value == 0) {
-          self.sendSocketNotification("USER_PRESENCE", false);
+          //self.sendSocketNotification("USER_PRESENCE", false);
           if (self.config.powerSaving){
             self.deactivateMonitor();
           }
         }
-      });*/
+      });
 
       this.activateMonitor();
       this.started = true;
