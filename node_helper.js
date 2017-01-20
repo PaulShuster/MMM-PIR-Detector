@@ -46,7 +46,7 @@ module.exports = NodeHelper.create({
   pollPin: function(self) {
     setTimeout(self.pollPin, 1000, self);
     if (flip) self.activateMonitor(); else self.deactivateMonitor();
-    flip = !flip;      
+    self.flip = !self.flip;      
   },
 
   // Subclass socketNotificationReceived received.
