@@ -59,6 +59,7 @@ module.exports = NodeHelper.create({
   pollPin: function(self) {
     //setTimeout(self.pollPin, 100, self);
     self.pir.read(function(err, value) {
+      console.log("Pin = " + value);
       if (value === 1) self.activateMonitor();
     });
     /*
