@@ -44,6 +44,7 @@ module.exports = NodeHelper.create({
   pollPin: function(self) {
     setTimeout(self.pollPin, 1000, self);
     var x = PiGpio.read(22);
+    console.log(x);
     if (x === 1) self.activateMonitor(); else self.deactivateMonitor();
     //PiGpio.open(22, function() {
     //  var x = PiGpio.read(22, function() {PiGpio.close(22);});
