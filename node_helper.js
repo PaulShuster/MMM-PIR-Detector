@@ -43,14 +43,16 @@ module.exports = NodeHelper.create({
         
   pollPin: function(self) {
     setTimeout(self.pollPin, 1000, self);
-    var x = PiGpio.read(22);
-    console.log(x);
-    if (x === 1) self.activateMonitor(); else self.deactivateMonitor();
-    //PiGpio.open(22, function() {
-    //  var x = PiGpio.read(22, function() {PiGpio.close(22);});
-    //  if (x === 1) self.activateMonitor(); else self.deactivateMonitor();
-    //});
-    
+    PiGpio.open(15, "input", function(err) {
+      console.log("Opening pin (" + err + ")");
+      PiGpio.read(15, function(err, val) {
+        console.log("Reading pin (" + err + "): " + val);
+        if (val === 1) self.activateMonitor(); else self.deactivateMonitor();
+        PiGpio.close(15, function(err) {
+          console.log("Opening pin (" + err + ")");
+        });
+      });
+    });    
   },
 
   // Subclass socketNotificationReceived received.
