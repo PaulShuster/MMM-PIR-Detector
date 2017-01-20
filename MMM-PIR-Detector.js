@@ -15,7 +15,7 @@ Module.register('MMM-PIR-Detector',{
 		powerSaving: true,
 		relayOnState: 1,
 	},
-
+ 
 
 	// Override socket notification handler.
 	socketNotificationReceived: function(notification, payload) {
@@ -45,5 +45,6 @@ Module.register('MMM-PIR-Detector',{
 		}
 		this.sendSocketNotification('CONFIG', this.config);
 		Log.info('Starting module: ' + this.name);
+    this.updateDom(1000);
 	}
 });
