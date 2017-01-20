@@ -16,9 +16,13 @@ const Gpio = require('onoff').Gpio;
 module.exports = NodeHelper.create({
   start: function () {
     this.started = false;
+    this.isActive = true;
+    this.motionCounter = 0;
   },
-
+  
   activateMonitor: function () {
+    if (this.isActive) return;
+    this.isActive = true;
     this.sendSocketNotification("SCREEN_ON");
     /*
     if (this.config.relayPIN != false) {
@@ -31,6 +35,8 @@ module.exports = NodeHelper.create({
   },
 
   deactivateMonitor: function () {
+    if (!this.isActive) return;
+    this.isActive = false;
     this.sendSocketNotification("SCREEN_OFF");
     /*
     if (this.config.relayPIN != false) {
@@ -56,6 +62,10 @@ module.exports = NodeHelper.create({
       });
     });  */  
   },
+    
+  onMotionTimeout: function(self) {
+    
+  }
 
   // Subclass socketNotificationReceived received.
   socketNotificationReceived: function(notification, payload) {
@@ -72,17 +82,11 @@ module.exports = NodeHelper.create({
 
       //Detected movement
       this.pir.watch(function(err, value) {
-        if (value == 1) {
-          //self.sendSocketNotification("USER_PRESENCE", true);
-          if (self.config.powerSaving){
-            self.activateMonitor();
-          }
-         }
-        else if (value == 0) {
-          //self.sendSocketNotification("USER_PRESENCE", false);
-          if (self.config.powerSaving){
-            self.deactivateMonitor();
-          }
+        if (value == 1) { 
+          self.motionCounter++;
+          var currentCounter = self.motionCounter;
+          self.activateMonitor(); 
+          setTimeout(function() {if (self.motionCounter === currentCounter) { deactivateMonitor(); }, 5000, self);
         }
       });
 
