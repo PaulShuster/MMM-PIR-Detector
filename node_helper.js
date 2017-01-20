@@ -53,9 +53,9 @@ module.exports = NodeHelper.create({
   },
         
   pollPin: function(self) {
-    setTimeout(self.pollPin, 1000, self);
+    setTimeout(self.pollPin, 100, self);
     self.pir.read(function(err, value) {
-      if (val === 1) self.activateMonitor();
+      if (value === 1) self.activateMonitor();
     });
     /*
     PiGpio.open(15, "input", function(err) {
