@@ -18,6 +18,7 @@ module.exports = NodeHelper.create({
   },
 
   activateMonitor: function () {
+    self.sendSocketNotification("SCREEN_ON");
     /*
     if (this.config.relayPIN != false) {
       this.relay.writeSync(this.config.relayOnState);
@@ -29,6 +30,7 @@ module.exports = NodeHelper.create({
   },
 
   deactivateMonitor: function () {
+    self.sendSocketNotification("SCREEN_OFF");
     /*
     if (this.config.relayPIN != false) {
       this.relay.writeSync(this.config.relayOffState);

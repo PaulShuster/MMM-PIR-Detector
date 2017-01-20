@@ -14,22 +14,23 @@ Module.register('MMM-PIR-Detector',{
     pirPIN: 22,
     powerSaving: true,
     relayOnState: 1,
+    text: "Screen On"
   },
  
-/*
+
   // Override socket notification handler.
   socketNotificationReceived: function(notification, payload) {
-    if (notification === "USER_PRESENCE"){
-      this.sendNotification(notification, payload)
+    if (notification === "SCREEN_ON"){
+      this.config.text = "Screen On";
     }
   },
 
   notificationReceived: function(notification, payload) {
-    if (notification === "SCREEN_WAKEUP"){
-      this.sendNotification(notification, payload)
+    if (notification === "SCREEN_OFF"){
+      this.config.text = "Screen Off";
     }
   },
-*/
+
   getDom: function() {
     var wrapper = document.createElement("div");
     wrapper.innerHTML = "Testing this out";
