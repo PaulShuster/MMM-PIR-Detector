@@ -9,6 +9,7 @@
  */
 
 const NodeHelper = require('node_helper');
+const Gpio = require('onoff').Gpio;
 //const PiGpio = require('pi-gpio');
 //const exec = require('child_process').exec;
 
@@ -64,7 +65,7 @@ module.exports = NodeHelper.create({
       this.config = payload;
       //setTimeout(self.pollPin, 1000, self);
 
-      Setup pins
+      //Setup pins
       this.pir = new Gpio(this.config.sensorPIN, 'in', 'both');
       // exec("echo '" + this.config.sensorPIN.toString() + "' > /sys/class/gpio/export", null);
       // exec("echo 'in' > /sys/class/gpio/gpio" + this.config.sensorPIN.toString() + "/direction", null);
