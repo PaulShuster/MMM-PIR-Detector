@@ -57,7 +57,7 @@ module.exports = NodeHelper.create({
   },
         
   pollPin: function(self) {
-    setTimeout(self.pollPin, 100, self);
+    //setTimeout(self.pollPin, 100, self);
     self.pir.read(function(err, value) {
       if (value === 1) self.activateMonitor();
     });
@@ -84,7 +84,7 @@ module.exports = NodeHelper.create({
 
       //Setup pins
       this.pir = new Gpio(this.config.pirPIN, 'in');
-      setTimeout(self.pollPin, 1000, self);
+      setInterval(self.pollPin, 100, self);
       // exec("echo '" + this.config.sensorPIN.toString() + "' > /sys/class/gpio/export", null);
       // exec("echo 'in' > /sys/class/gpio/gpio" + this.config.sensorPIN.toString() + "/direction", null);
 
