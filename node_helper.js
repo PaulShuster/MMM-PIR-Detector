@@ -21,9 +21,13 @@ module.exports = NodeHelper.create({
   },
   
   activateMonitor: function () {
+    console.log("Activate");
     this.motionCounter++;
     var currentCounter = this.motionCounter;
-    setTimeout(function(self) { if (self.motionCounter === currentCounter) { self.deactivateMonitor(); } }, 5000, this);
+    setTimeout(function(self) { 
+      console.log("self: " + self.motionCounter + "    local: " + currentCounter);
+      if (self.motionCounter === currentCounter) { self.deactivateMonitor(); } 
+    }, 5000, this);
           
     if (this.isActive) return;
     this.isActive = true;
