@@ -9,7 +9,7 @@
  */
 
 const NodeHelper = require('node_helper');
-//const Gpio = require('onoff').Gpio;
+const PiGpio = require('pi-gpio').Gpio;
 //const exec = require('child_process').exec;
 
 module.exports = NodeHelper.create({
@@ -40,13 +40,13 @@ module.exports = NodeHelper.create({
     }
     */
   },
-  
-  flip: true,
-  
+    
   pollPin: function(self) {
     setTimeout(self.pollPin, 1000, self);
-    if (self.flip) self.activateMonitor(); else self.deactivateMonitor();
-    self.flip = !self.flip;      
+    PiGpio.open(22);
+    var x = PiGpio.read(22);
+    if (x === 1) self.activateMonitor(); else self.deactivateMonitor();
+    PiGpio.close(22);
   },
 
   // Subclass socketNotificationReceived received.

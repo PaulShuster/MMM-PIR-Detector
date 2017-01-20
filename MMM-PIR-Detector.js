@@ -27,7 +27,7 @@ Module.register('MMM-PIR-Detector',{
     if (notification === "SCREEN_OFF"){
       this.displayText = "Screen Off";
     }
-    this.updateDom(1000);
+    this.updateDom();
   },
 
   getDom: function() {
