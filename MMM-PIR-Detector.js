@@ -17,23 +17,24 @@ Module.register('MMM-PIR-Detector',{
     text: "Screen On"
   },
  
+  displayText: "Starting",
 
   // Override socket notification handler.
   socketNotificationReceived: function(notification, payload) {
     if (notification === "SCREEN_ON"){
-      this.config.text = "Screen On";
+      this.displayText = "Screen On";
     }
   },
 
   notificationReceived: function(notification, payload) {
     if (notification === "SCREEN_OFF"){
-      this.config.text = "Screen Off";
+      this.displayText = "Screen Off";
     }
   },
 
   getDom: function() {
     var wrapper = document.createElement("div");
-    wrapper.innerHTML = "Testing this out";
+    wrapper.innerHTML = "PIR: " + this.displayText;
     return wrapper;
   }
 /*
