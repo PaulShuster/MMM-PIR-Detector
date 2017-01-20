@@ -45,7 +45,7 @@ module.exports = NodeHelper.create({
   
   pollPin: function(self) {
     setTimeout(self.pollPin, 1000, self);
-    if (flip) self.activateMonitor(); else self.deactivateMonitor();
+    if (self.flip) self.activateMonitor(); else self.deactivateMonitor();
     self.flip = !self.flip;      
   },
 
