@@ -16,6 +16,6 @@
   "author": "Paul Shuster",
   "license": "MIT",
   "dependencies": {
-    "pi-gpio": "latest"
+    "onoff": "latest"
   }
 }

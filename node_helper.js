@@ -9,7 +9,7 @@
  */
 
 const NodeHelper = require('node_helper');
-const PiGpio = require('pi-gpio');
+//const PiGpio = require('pi-gpio');
 //const exec = require('child_process').exec;
 
 module.exports = NodeHelper.create({
@@ -43,6 +43,7 @@ module.exports = NodeHelper.create({
         
   pollPin: function(self) {
     setTimeout(self.pollPin, 1000, self);
+    /*
     PiGpio.open(15, "input", function(err) {
       console.log("Opening pin (" + err + ")");
       PiGpio.read(15, function(err, val) {
@@ -52,7 +53,7 @@ module.exports = NodeHelper.create({
           console.log("Opening pin (" + err + ")");
         });
       });
-    });    
+    });  */  
   },
 
   // Subclass socketNotificationReceived received.
