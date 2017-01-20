@@ -40,6 +40,15 @@ module.exports = NodeHelper.create({
     }
     */
   },
+  
+  flip: true,
+  
+  pollPin: function() {
+    const self = this;
+    setTimeout(self.pollPin, 1000, self);
+    if (flip) self.activateMonitor(); else self.deactivateMonitor();
+    flip = !flip;      
+  },
 
   // Subclass socketNotificationReceived received.
   socketNotificationReceived: function(notification, payload) {
@@ -47,6 +56,7 @@ module.exports = NodeHelper.create({
     if (notification === 'CONFIG' && this.started == false) {
       const self = this;
       this.config = payload;
+      setTimeout(self.pollPin, 1000, self);
 
       //Setup pins
       //this.pir = new Gpio(this.config.sensorPIN, 'in', 'both');
