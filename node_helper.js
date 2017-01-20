@@ -62,11 +62,7 @@ module.exports = NodeHelper.create({
       });
     });  */  
   },
-    
-  onMotionTimeout: function(self) {
-    
-  }
-
+   
   // Subclass socketNotificationReceived received.
   socketNotificationReceived: function(notification, payload) {
     
