@@ -21,13 +21,13 @@ module.exports = NodeHelper.create({
   },
   
   activateMonitor: function () {
-    console.log("Activate");
-    this.motionCounter++;
-    var currentCounter = this.motionCounter;
-    setTimeout(function(self) { 
-      console.log("self: " + self.motionCounter + "    local: " + currentCounter);
-      if (self.motionCounter === currentCounter) { self.deactivateMonitor(); } 
-    }, 5000, this);
+    //console.log("Activate");
+    //this.motionCounter++;
+    //var currentCounter = this.motionCounter;
+    //setTimeout(function(self) { 
+    //  console.log("self: " + self.motionCounter + "    local: " + currentCounter);
+    //  if (self.motionCounter === currentCounter) { self.deactivateMonitor(); } 
+    //}, 5000, this);
           
     if (this.isActive) return;
     this.isActive = true;
@@ -84,17 +84,19 @@ module.exports = NodeHelper.create({
       this.activateMonitor();
 
       //Setup pins
-      this.pir = new Gpio(this.config.pirPIN, 'in');
-      setInterval(self.pollPin, 100, self);
+      this.pir = new Gpio(this.config.pirPIN, 'in', 'both');
+      //setInterval(self.pollPin, 100, self);
       // exec("echo '" + this.config.sensorPIN.toString() + "' > /sys/class/gpio/export", null);
       // exec("echo 'in' > /sys/class/gpio/gpio" + this.config.sensorPIN.toString() + "/direction", null);
 
       //Detected movement
-      //this.pir.watch(function(err, value) {
-      //  if (value == 1) { 
-      //    self.activateMonitor();
-      //  }
-      //});
+      this.pir.watch(function(err, value) {
+        if (value == 1) { 
+          self.activateMonitor();
+        } else {
+          self.deactivateMonitor();
+        }
+      });
 
       this.started = true;
 
