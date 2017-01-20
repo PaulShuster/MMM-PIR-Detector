@@ -43,17 +43,18 @@ module.exports = NodeHelper.create({
 
   // Subclass socketNotificationReceived received.
   socketNotificationReceived: function(notification, payload) {
-    /*
+    
     if (notification === 'CONFIG' && this.started == false) {
       const self = this;
       this.config = payload;
 
       //Setup pins
-      this.pir = new Gpio(this.config.sensorPIN, 'in', 'both');
+      //this.pir = new Gpio(this.config.sensorPIN, 'in', 'both');
       // exec("echo '" + this.config.sensorPIN.toString() + "' > /sys/class/gpio/export", null);
       // exec("echo 'in' > /sys/class/gpio/gpio" + this.config.sensorPIN.toString() + "/direction", null);
 
       //Detected movement
+      /*
       this.pir.watch(function(err, value) {
         if (value == 1) {
           self.sendSocketNotification("USER_PRESENCE", true);
@@ -67,13 +68,14 @@ module.exports = NodeHelper.create({
             self.deactivateMonitor();
           }
         }
-      });
+      });*/
 
+      this.activateMonitor();
       this.started = true;
 
     } else if (notification === 'SCREEN_WAKEUP') {
       this.activateMonitor();
-    }*/
+    }
   }
 
 });

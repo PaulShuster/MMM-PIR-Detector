@@ -24,29 +24,20 @@ Module.register('MMM-PIR-Detector',{
     if (notification === "SCREEN_ON"){
       this.displayText = "Screen On";
     }
-  },
-
-  notificationReceived: function(notification, payload) {
     if (notification === "SCREEN_OFF"){
       this.displayText = "Screen Off";
     }
+    this.updateDom(1000);
   },
 
   getDom: function() {
     var wrapper = document.createElement("div");
     wrapper.innerHTML = "PIR: " + this.displayText;
     return wrapper;
-  }
-/*
+  },
+
   start: function() {
-    if (this.config.relayOnState == 1){
-      this.config.relayOffState = 0
-    }
-    else if (this.config.relayOnState == 0){
-      this.config.relayOffState = 1
-    }
     this.sendSocketNotification('CONFIG', this.config);
     Log.info('Starting module: ' + this.name);
-    this.updateDom(1000);
-  }*/
+  }
 });
