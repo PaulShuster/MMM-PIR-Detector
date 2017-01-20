@@ -21,6 +21,10 @@ module.exports = NodeHelper.create({
   },
   
   activateMonitor: function () {
+    this.motionCounter++;
+    var currentCounter = this.motionCounter;
+    setTimeout(function(self) { if (self.motionCounter === currentCounter) { self.deactivateMonitor(); } }, 5000, this);
+          
     if (this.isActive) return;
     this.isActive = true;
     this.sendSocketNotification("SCREEN_ON");
@@ -69,24 +73,21 @@ module.exports = NodeHelper.create({
     if (notification === 'CONFIG' && this.started == false) {
       const self = this;
       this.config = payload;
+      this.activateMonitor();
       //setTimeout(self.pollPin, 1000, self);
 
       //Setup pins
-      this.pir = new Gpio(this.config.pirPIN, 'in', 'both');
+      this.pir = new Gpio(this.config.pirPIN, 'in', 'rising');
       // exec("echo '" + this.config.sensorPIN.toString() + "' > /sys/class/gpio/export", null);
       // exec("echo 'in' > /sys/class/gpio/gpio" + this.config.sensorPIN.toString() + "/direction", null);
 
       //Detected movement
       this.pir.watch(function(err, value) {
         if (value == 1) { 
-          self.motionCounter++;
-          var currentCounter = self.motionCounter;
-          self.activateMonitor(); 
-          setTimeout(function() {if (self.motionCounter === currentCounter) { self.deactivateMonitor(); } }, 5000, self);
+          self.activateMonitor();
         }
       });
 
-      this.activateMonitor();
       this.started = true;
 
     } else if (notification === 'SCREEN_WAKEUP') {
