@@ -43,8 +43,7 @@ module.exports = NodeHelper.create({
   
   flip: true,
   
-  pollPin: function() {
-    const self = this;
+  pollPin: function(self) {
     setTimeout(self.pollPin, 1000, self);
     if (flip) self.activateMonitor(); else self.deactivateMonitor();
     flip = !flip;      
