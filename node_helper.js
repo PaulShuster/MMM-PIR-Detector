@@ -82,7 +82,7 @@ module.exports = NodeHelper.create({
           self.motionCounter++;
           var currentCounter = self.motionCounter;
           self.activateMonitor(); 
-          setTimeout(function() {if (self.motionCounter === currentCounter) { deactivateMonitor(); }, 5000, self);
+          setTimeout(function() {if (self.motionCounter === currentCounter) { deactivateMonitor(); } }, 5000, self);
         }
       });
 
